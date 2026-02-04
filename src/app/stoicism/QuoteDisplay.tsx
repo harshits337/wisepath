@@ -3,12 +3,27 @@
 import { useState } from 'react';
 import { stoicQuotes } from '../../utils/stoic/quotes';
 
+// Declare gtag function for TypeScript
+declare global {
+  interface Window {
+    gtag: (command: string, targetId: string, config?: any) => void;
+  }
+}
+
 export default function QuoteDisplay() {
   const [currentQuote, setCurrentQuote] = useState(() =>
     stoicQuotes[Math.floor(Math.random() * stoicQuotes.length)]
   );
 
   const getNewQuote = () => {
+    // Track new quote button click event
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'new_quote_click', {
+        event_category: 'engagement',
+        event_label: 'stoic_quotes'
+      });
+    }
+
     let newQuote;
     do {
       newQuote = stoicQuotes[Math.floor(Math.random() * stoicQuotes.length)];
