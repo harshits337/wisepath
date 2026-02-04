@@ -1,29 +1,32 @@
-import { Metadata } from 'next';
+'use client';
+
+import { useState } from 'react';
 import { stoicQuotes } from '../../utils/stoic/quotes';
 
-export const metadata: Metadata = {
-  title: 'Stoic Wisdom - Daily Quotes',
-  description: 'Discover timeless wisdom through daily stoic quotes from ancient philosophers like Marcus Aurelius, Seneca, and Epictetus. Find inspiration and guidance for a virtuous life.',
-  keywords: 'stoicism, quotes, Marcus Aurelius, Seneca, Epictetus, philosophy, wisdom',
-  openGraph: {
-    title: 'Stoic Wisdom - Daily Quotes',
-    description: 'Daily stoic quotes for inspiration and wisdom.',
-    type: 'website',
-  },
-};
-
 export default function StoicismPage() {
-  const randomQuote = stoicQuotes[Math.floor(Math.random() * stoicQuotes.length)];
+  const [currentQuote, setCurrentQuote] = useState(() =>
+    stoicQuotes[Math.floor(Math.random() * stoicQuotes.length)]
+  );
+
+  const getNewQuote = () => {
+    let newQuote;
+    do {
+      newQuote = stoicQuotes[Math.floor(Math.random() * stoicQuotes.length)];
+    } while (newQuote.id === currentQuote.id); // Avoid same quote consecutively
+    setCurrentQuote(newQuote);
+  };
 
   return (
     <div style={{
       backgroundColor: 'black',
       minHeight: '100vh',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       color: 'white',
-      fontFamily: 'Arial, sans-serif'
+      fontFamily: 'Arial, sans-serif',
+      padding: '20px'
     }}>
       <div style={{
         textAlign: 'center',
@@ -31,15 +34,42 @@ export default function StoicismPage() {
         maxWidth: '600px',
         padding: '20px',
         textShadow: '0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6)',
-        lineHeight: '1.4'
+        lineHeight: '1.4',
+        marginBottom: '40px'
       }}>
         <p style={{ marginBottom: '20px', fontStyle: 'italic' }}>
-          "{randomQuote.quote}"
+          "{currentQuote.quote}"
         </p>
         <p style={{ fontSize: '1.5rem', opacity: 0.8 }}>
-          - {randomQuote.author}
+          - {currentQuote.author}
         </p>
       </div>
+      <button
+        onClick={getNewQuote}
+        style={{
+          padding: '12px 24px',
+          fontSize: '1.2rem',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          color: 'white',
+          border: '2px solid rgba(255, 255, 255, 0.3)',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          transition: 'all 0.3s ease',
+          textShadow: '0 0 10px rgba(255, 255, 255, 0.5)'
+        }}
+        onMouseOver={(e) => {
+          const target = e.target as HTMLButtonElement;
+          target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+          target.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+        }}
+        onMouseOut={(e) => {
+          const target = e.target as HTMLButtonElement;
+          target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+          target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+        }}
+      >
+        New Quote
+      </button>
     </div>
   );
 }
