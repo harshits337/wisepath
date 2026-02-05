@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { stoicQuotes } from '../../utils/stoic/quotes';
 
 // Declare gtag function for TypeScript
@@ -43,6 +44,37 @@ export default function QuoteDisplay() {
           fontFamily: 'Arial, sans-serif',
           padding: '20px'
       }}>
+          {/* Navigation */}
+          <div style={{
+              position: 'absolute',
+              top: '20px',
+              left: '20px',
+              display: 'flex',
+              gap: '20px'
+          }}>
+              <Link
+                  href="/"
+                  style={{
+                      color: '#B0B0B0',
+                      textDecoration: 'none',
+                      fontSize: '1rem',
+                      fontWeight: 'bold'
+                  }}
+              >
+                  🏠 Home
+              </Link>
+              <Link
+                  href="/stoicism/authors"
+                  style={{
+                      color: '#B0B0B0',
+                      textDecoration: 'none',
+                      fontSize: '1rem',
+                      fontWeight: 'bold'
+                  }}
+              >
+                  📚 Authors
+              </Link>
+          </div>
           <div style={{
               maxWidth: '800px',
               width: '100%',

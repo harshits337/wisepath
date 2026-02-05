@@ -40,3 +40,27 @@ a {
     color-scheme: dark;
   }
 }
+
+/* Custom hover effects for buttons */
+.hover-button-primary:hover {
+  background-color: #808080 !important;
+  transform: translateY(-2px);
+}
+
+.hover-button-secondary:hover {
+  background-color: #B0B0B0 !important;
+  color: black !important;
+  transform: translateY(-2px);
+}
+
+.author-card:hover {
+  border-color: #B0B0B0 !important;
+  transform: translateY(-5px) !important;
+  box-shadow: 0 8px 25px rgba(176, 176, 176, 0.2) !important;
+}
+
+.quote-card:hover {
+  border-color: #B0B0B0 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(176, 176, 176, 0.1) !important;
+}
