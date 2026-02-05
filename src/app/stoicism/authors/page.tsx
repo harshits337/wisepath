@@ -21,7 +21,7 @@ function getAuthorsWithCounts() {
   }, {} as Record<string, number>);
 
   return Object.entries(authorCounts)
-    .map(([author, count]) => ({ author, count }))
+    .map(([author, count]) => ({ author, count: count as number }))
     .sort((a, b) => b.count - a.count); // Sort by quote count descending
 }
 
